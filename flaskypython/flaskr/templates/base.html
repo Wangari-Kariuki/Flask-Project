@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<head>
+<title>{% block title %} {% endblock %} MVCA</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+</head>
+<nav>
+    <h1>NEW</h1>
+    <ul>
+        {% if g.user is defined and g.user %}
+        <li><span>{{ g.user['username'] }}</span></li>
+        <li><a href = "{{ url_for('auth.logout') }}">Log out</a></li>
+        {% else %}
+        <li><a href = "{{ url_for('auth.register') }}">Register</a></li>
+        <li><a href = "{{ url_for('auth.login') }}">Log in</a></li>
+        {% endif %}
+    </ul>
+</nav>
+<section class = "content"></section>
+<header>
+    {% block header %} YAAP {% endblock %}
+</header>
+{% for message in get_flashed_messages() %}
+<div class = "flash">{{ message }}</div>
+{% endfor %}
+{% block content %}{% endblock %}
